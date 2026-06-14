@@ -1,0 +1,1696 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Elem Mescouto — Desenvolvimento & Estratégia</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap"
+    rel="stylesheet" />
+  <style>
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --gold: #C9A96E;
+      --gold-light: #D4B483;
+      --gold-bg: #F0E6D3;
+      --dark: #1A1612;
+      --dark-2: #2A2218;
+      --cream: #F5F1EB;
+      --cream-2: #EDE8E0;
+      --text-dark: #1C1C1C;
+      --text-muted: #6B6560;
+      --white: #FFFFFF;
+      --serif: 'Playfair Display', Georgia, serif;
+      --sans: 'Inter', system-ui, sans-serif;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: var(--sans);
+      color: var(--text-dark);
+      background: var(--white);
+      overflow-x: hidden;
+    }
+
+    .container {
+      max-width: 1152px;
+      margin-left: auto;
+      margin-right: auto;
+      width: 100%;
+      padding-left: 24px;
+      padding-right: 24px;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      height: 80px;
+      background: var(--cream);
+      border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+    }
+
+    nav .container {
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .nav-brand {
+      display: flex;
+      flex-direction: column;
+      gap: 1px;
+    }
+    .nav-brand a {
+      display: flex;
+      flex-direction: column;
+      text-decoration: none;
+    }
+
+    .nav-brand-name {
+      font-family: var(--serif);
+      font-size: 20px;
+      font-weight: 800;
+      color: var(--text-dark);
+      letter-spacing: 0.01em;
+    }
+
+    .nav-brand-sub {
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      color: var(--gold);
+      text-transform: uppercase;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 32px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-size: 14px;
+      font-weight: 400;
+      color: var(--text-dark);
+      text-decoration: none;
+      transition: color .2s;
+    }
+
+    .nav-links a:hover {
+      color: var(--gold);
+    }
+
+    .btn-nav {
+      background: var(--text-dark);
+      color: var(--white);
+      border-radius: 4px;
+      border: none;
+      padding: 10px 22px;
+      font-family: var(--sans);
+      font-size: 13.5px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background .2s;
+    }
+
+    .btn-nav:hover {
+      background: #333;
+    }
+
+    /* ── HERO ── */
+    #hero {
+      background: radial-gradient(ellipse 60% 80% at 80% 50%, #4A3420 0%, #2A1E12 40%, var(--dark) 100%);
+      min-height: calc(100vh - 64px);
+      position: relative;
+      overflow: hidden;
+    }
+
+    #hero::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 40% 60% at 75% 40%, rgba(180, 120, 50, 0.18) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    #hero .container {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: 1fr 400px;
+      align-items: center;
+      gap: 64px;
+      min-height: calc(100vh - 64px);
+      padding-top: 60px;
+      padding-bottom: 60px;
+    }
+
+    .hero-text {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .hero-img-col {
+      position: relative;
+      align-self: stretch;
+      display: flex;
+      align-items: center;
+    }
+
+    .hero-photo {
+      width: 100%;
+      height: 100%;
+      max-height: 830px;
+      /*original 700px*/
+      border-radius: 4px;
+      object-fit: cover;
+      object-position: top center;
+      display: block;
+    }
+
+    .hero-photo-placeholder {
+      width: 100%;
+      height: 680px;
+      background: linear-gradient(180deg, rgba(180, 120, 50, 0.14) 0%, rgba(40, 25, 10, 0.6) 100%);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+    }
+
+    .hero-photo-placeholder span {
+      font-size: 12px;
+      color: rgba(255, 255, 255, 0.22);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .hero-img-gradient {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to right, var(--dark) 0%, transparent 30%),
+        linear-gradient(to top, var(--dark) 0%, transparent 20%);
+      pointer-events: none;
+    }
+
+    .hero-eyebrow {
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.22em;
+      color: var(--gold);
+      text-transform: uppercase;
+      margin-bottom: 28px;
+    }
+
+    .hero-title {
+      font-family: var(--serif);
+      font-size: clamp(40px, 5.5vw, 58px);
+      font-weight: 700;
+      line-height: 1.12;
+      color: var(--white);
+      max-width: 600px;
+      margin-bottom: 28px;
+    }
+
+    .hero-body {
+      font-size: 18px;
+      line-height: 1.7;
+      color: rgba(255, 255, 255, 0.65);
+      max-width: 520px;
+      margin-bottom: 44px;
+    }
+
+    .hero-ctas {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .btn-gold {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--gold);
+      color: var(--dark);
+      border-radius: 4px;
+      border: none;
+      padding: 14px 28px;
+      font-family: var(--sans);
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background .2s;
+      text-decoration: none;
+    }
+
+    .btn-gold:hover {
+      background: var(--gold-light);
+    }
+
+    .btn-outline-white {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: transparent;
+      color: var(--white);
+      border: 1.5px solid rgba(255, 255, 255, 0.5);
+      border-radius: 4px;
+      padding: 14px 28px;
+      font-family: var(--sans);
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: border-color .2s, color .2s;
+      text-decoration: none;
+    }
+
+    .btn-outline-white:hover {
+      border-color: var(--white);
+    }
+
+    .hero-stats {
+      display: flex;
+      gap: 56px;
+      margin-top: 60px;
+      padding-top: 40px;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .stat-num {
+      font-family: var(--serif);
+      font-size: 36px;
+      font-weight: 700;
+      color: var(--white);
+    }
+
+    .stat-num span {
+      font-size: 22px;
+      color: var(--gold);
+    }
+
+    .stat-label {
+      font-size: 12px;
+      color: rgba(255, 255, 255, 0.5);
+      margin-top: 4px;
+    }
+
+    /* ── SOBRE ── */
+    #sobre {
+      background: var(--cream);
+      padding: 100px 0;
+    }
+
+    #sobre .container {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      gap: 80px;
+    }
+
+    .sobre-img-wrap {
+      position: relative;
+      overflow: visible;
+      /* ESSENCIAL para deixar o card sair da imagem */
+    }
+
+    .sobre-img-placeholder {
+      width: 100%;
+      border-radius: 5px;
+      aspect-ratio: 3/4;
+      background: linear-gradient(160deg, #8B7355 0%, #6B5840 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .sobre-quote {
+      position: absolute;
+      bottom: -40px;
+      /* distância da base */
+      right: -40px;
+      /* faz ele “passar” da imagem */
+      background: var(--white);
+      padding: 24px 28px;
+      max-width: 280px;
+
+      border-radius: 6px;
+      border: 1px solid rgba(0, 0, 0, 0.06);
+
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+      /* dá profundidade */
+    }
+
+    .sobre-quote p {
+      font-family: var(--serif);
+      font-size: 18px;
+      line-height: 1.5;
+      color: var(--text-dark);
+    }
+
+    .sobre-quote cite {
+      display: block;
+      margin-top: 12px;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      color: var(--gold);
+      font-style: normal;
+      text-transform: uppercase;
+    }
+
+    .section-eyebrow {
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.22em;
+      color: var(--gold);
+      text-transform: uppercase;
+      margin-bottom: 20px;
+    }
+
+    .sobre-p {
+      font-size: 16px;
+      line-height: 1.75;
+      color: var(--text-muted);
+      margin-bottom: 16px;
+    }
+
+    .section-title {
+      font-family: var(--serif);
+      font-size: clamp(28px, 3.5vw, 36px);
+      font-weight: 600;
+      line-height: 1.2;
+      color: var(--text-dark);
+      margin-bottom: 28px;
+    }
+
+
+    .sobre-text p:last-of-type {
+      margin-bottom: 32px;
+    }
+
+    .sobre-checklist {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px 32px;
+    }
+
+    .check-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 14px;
+      color: var(--text-dark);
+      line-height: 1.4;
+    }
+
+
+    .check-icon {
+      width: 23px;
+      height: 23px;
+      margin-top: 2px;
+      color: var(--gold);
+      flex-shrink: 0;
+      display: block;
+      /* evita desalinhamento inline */
+    }
+
+
+    /* ── SOLUÇÕES ── */
+    #solucoes {
+      background: var(--cream-2);
+      padding: 100px 0;
+    }
+
+    .solucoes-header {
+      margin-bottom: 60px;
+      max-width: 640px;
+    }
+
+    .solucoes-header .section-title {
+      margin-bottom: 16px;
+    }
+
+    .solucoes-yebrow {
+      font-size: 15px;
+      line-height: 1.7;
+      color: var(--gold);
+    }
+
+    .solucoes-p {
+      color: var(--text-muted);
+      font-size: 16px;
+    }
+
+    .solucoes-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      border: 1px solid rgba(0, 0, 0, 0.1);
+    }
+
+    .card-sol {
+      padding: 40px 36px;
+      border-right: 1px solid rgba(0, 0, 0, 0.1);
+      border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+      background: var(--white);
+      transition: background .2s;
+    }
+
+    .card-sol:nth-child(3n) {
+      border-right: none;
+    }
+
+    .card-sol:hover {
+      background: #faf8f4;
+    }
+
+    .card-sol-last {
+      background: var(--dark);
+      padding: 40px 36px;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    }
+
+    .card-sol-last .card-title {
+      color: var(--white);
+    }
+
+    .card-sol-last p {
+      color: rgba(255, 255, 255, 0.55);
+    }
+
+    .card-sol-last a {
+      color: var(--gold);
+      font-size: 14px;
+      font-weight: 500;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 16px;
+    }
+
+    .card-sol-last a:hover {
+      text-decoration: underline;
+    }
+
+    .card-icon {
+      width: 44px;
+      height: 44px;
+      background: var(--gold-bg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 24px;
+      color: var(--gold);
+      font-size: 20px;
+    }
+
+    .card-title {
+      font-family: var(--serif);
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--text-dark);
+      margin-bottom: 12px;
+    }
+
+    .card-sol p {
+      font-size: 14px;
+      line-height: 1.65;
+      color: var(--text-muted);
+    }
+
+    /* ── DIFERENCIAIS ── */
+    #diferenciais {
+      background: var(--cream);
+      padding: 100px 0;
+    }
+
+    #diferenciais .container {
+      display: grid;
+      grid-template-columns: 0.85fr 1.15fr;
+      align-items: start;
+      gap: 80px;
+    }
+
+    .dif-left {
+      position: relative;
+    }
+
+    .diferenciais-p {
+      font-size: 16px;
+      line-height: 1.75;
+      color: var(--text-muted);
+      margin-bottom: 16px;
+    }
+
+    .dif-left .section-title {
+      margin-bottom: 20px;
+    }
+
+    .dif-left .section-eyebrow {
+      margin-bottom: 12px;
+      color: var(--gold);
+    }
+
+    .dif-title-card {
+      font-size: 14px;
+      line-height: 1.7;
+      color: var(--text-muted);
+      max-width: 360px;
+    }
+
+    .dif-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      border: 1px solid rgba(0, 0, 0, 0.1);
+    }
+
+    .card-dif {
+      padding: 44px 40px;
+      border-right: 1px solid rgba(0, 0, 0, 0.1);
+      border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+      background: var(--white);
+    }
+
+    .card-dif:nth-child(2n) {
+      border-right: none;
+    }
+
+    .card-dif:nth-last-child(-n+2) {
+      border-bottom: none;
+    }
+
+    .card-dif .card-icon {
+      width: 40px;
+      height: 40px;
+      font-size: 18px;
+    }
+
+    .card-dif .card-title {
+      font-size: 18px;
+      color: var(--text-dark);
+    }
+
+    .card-dif p {
+      font-size: 13.5px;
+      line-height: 1.65;
+      color: var(--text-muted);
+    }
+
+    /* ── PALESTRAS ── */
+    #palestras {
+      background: var(--cream-2);
+      padding: 100px 0;
+    }
+
+    .palestras-header {
+      max-width: 600px;
+      margin-bottom: 60px;
+    }
+
+    .palestras-header .section-title {
+      margin-bottom: 16px;
+    }
+
+    .palestras-header .section-eyebrow {
+      margin-bottom: 12px;
+      color: var(--gold);
+    }
+
+    .palestra-p {
+      font-size: 16px;
+      line-height: 1.7;
+      color: var(--text-muted);
+    }
+
+    .palestras-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      border: 1px solid rgba(0, 0, 0, 0.1);
+    }
+
+    .card-pal {
+      padding: 32px 28px;
+      border-right: 1px solid rgba(0, 0, 0, 0.1);
+      border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+      background: var(--white);
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      transition: background 0.3s ease;
+
+
+    }
+
+    .card-pal:hover {
+      background: lab(97.6976% .3407 2.25881);
+    }
+
+    .card-pal:nth-child(3n) {
+      border-right: none;
+    }
+
+    .pal-icon-wrap {
+      width: 38px;
+      height: 38px;
+      flex-shrink: 0;
+      background: var(--gold-bg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--gold);
+      font-size: 16px;
+    }
+
+    .pal-num {
+      font-size: 10px;
+      font-weight: 600;
+      color: var(--gold);
+      letter-spacing: 0.1em;
+      margin-bottom: 4px;
+    }
+
+    .pal-title {
+      font-family: var(--serif);
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--text-dark);
+    }
+
+    .card-pal-cta {
+      background: var(--dark);
+      padding: 32px 28px;
+      border-right: 1px solid rgba(0, 0, 0, 0.1);
+      border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    }
+
+    .card-pal-cta h4 {
+      font-family: var(--serif);
+      font-size: 17px;
+      font-weight: 600;
+      color: var(--white);
+      margin-bottom: 10px;
+    }
+
+    .card-pal-cta p {
+      font-size: 13px;
+      color: rgba(255, 255, 255, 0.55);
+      margin-bottom: 16px;
+    }
+
+    .card-pal-cta a {
+      color: var(--gold);
+      font-size: 14px;
+      font-weight: 500;
+      text-decoration: none;
+    }
+
+    .card-pal-cta a:hover {
+      text-decoration: underline;
+    }
+
+    .card-pal-empty {
+      background: var(--cream-2);
+      border-right: 1px solid rgba(0, 0, 0, 0.1);
+      border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    }
+
+    .card-pal-empty:last-child {
+      border-right: none;
+    }
+
+    /* ── DEPOIMENTOS ── */
+    #depoimentos {
+      background: var(--cream);
+      padding: 100px 0;
+    }
+
+    .dep-header {
+      margin-bottom: 60px;
+    }
+
+    .dep-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .card-dep {
+      background: var(--white);
+      padding: 40px 36px;
+      border: 1px solid rgba(0, 0, 0, 0.06);
+    }
+
+    .dep-quote-icon {
+      font-size: 28px;
+      color: var(--gold);
+      margin-bottom: 24px;
+      line-height: 1;
+      font-family: Georgia, serif;
+    }
+
+    .card-dep p {
+      font-size: 14.5px;
+      line-height: 1.75;
+      color: var(--text-dark);
+      margin-bottom: 28px;
+    }
+
+    .dep-divider {
+      height: 1px;
+      background: rgba(0, 0, 0, 0.1);
+      margin-bottom: 24px;
+    }
+
+    .dep-name {
+      font-size: 14.5px;
+      font-weight: 600;
+      color: var(--text-dark);
+      margin-bottom: 4px;
+    }
+
+    .dep-role {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      color: var(--text-muted);
+      text-transform: uppercase;
+    }
+
+    /* ── CONTATO ── */
+    #contato {
+      padding: 120px 0;
+      position: relative;
+      overflow: hidden;
+    }
+
+    #contato::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+
+      /* Camadas combinadas */
+      background:
+        radial-gradient(ellipse at center,
+          color-mix(in oklab, lab(11.7908% 2.85018 4.52251) 70%, transparent) 0%,
+          color-mix(in oklab, lab(11.7908% 2.85018 4.52251) 85%, rgb(2, 2, 2)) 65%,
+          lab(8% 2 3) 100%),
+        color-mix(in oklab, lab(11.7908% 2.85018 4.52251) 80%, transparent),
+        color-mix(in oklab, black 95%, transparent);
+    }
+
+    .bg-img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: 1;
+
+      /* deixa a imagem mais escura/base */
+      filter: brightness(0.6) contrast(1.1);
+    }
+
+    #contato .container {
+      text-align: center;
+      position: relative;
+      z-index: 1;
+    }
+
+    #contato .section-eyebrow {
+      color: var(--gold);
+      margin-bottom: 24px;
+    }
+
+    #contato .section-title {
+      color: var(--white);
+      max-width: 600px;
+      margin: 0 auto 20px;
+      font-size: 48px;
+    }
+
+    #contato>.container>.contato-p {
+      font-size: 16px;
+      color: rgba(255, 255, 255, 0.55);
+      max-width: 520px;
+      margin: 0 auto 48px;
+      line-height: 1.7;
+    }
+
+    #contato .hero-ctas {
+      justify-content: center;
+    }
+
+    .btn-outline-gold {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: transparent;
+      color: var(--white);
+      border: 1.5px solid rgba(255, 255, 255, 0.35);
+      padding: 14px 28px;
+      font-family: var(--sans);
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: border-color .2s;
+      text-decoration: none;
+    }
+
+    .btn-outline-gold:hover {
+      border-color: var(--white);
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--dark-2);
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .footer-inner {
+      padding: 64px 0 0;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1.4fr 1fr 1.2fr;
+      gap: 64px;
+      padding-bottom: 64px;
+    }
+
+    .footer-brand-name {
+      font-family: var(--serif);
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 14px;
+    }
+
+    .footer-brand-desc {
+      font-size: 14px;
+      line-height: 1.7;
+      color: rgba(255, 255, 255, 0.4);
+    }
+
+    .footer-col-title {
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 24px;
+    }
+
+    .footer-nav {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .footer-nav a {
+      font-size: 14px;
+      color: rgba(255, 255, 255, 0.6);
+      text-decoration: none;
+      transition: color .2s;
+    }
+
+    .footer-nav a:hover {
+      color: var(--white);
+    }
+
+    .footer-contact {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .contact-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 14px;
+      color: rgba(255, 255, 255, 0.6);
+    }
+
+    .contact-icon {
+      color: var(--gold);
+      font-size: 16px;
+    }
+
+    .footer-bottom {
+      border-top: 1px solid rgba(255, 255, 255, 0.07);
+      padding: 24px 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .footer-bottom p {
+      font-size: 12px;
+      color: rgba(255, 255, 255, 0.3);
+    }
+
+    @media (max-width: 900px) {
+      .container {
+        padding-left: 24px;
+        padding-right: 24px;
+      }
+
+      .nav-links {
+        display: none;
+      }
+
+      #hero .container {
+        min-height: auto;
+        padding-top: 80px;
+        padding-bottom: 60px;
+        display: flex;
+        flex-direction: column;
+        gap: 32px;
+      }
+
+       .hero-text {
+    text-align: center;
+  }
+
+  .hero-title {
+    font-size: 28px;
+    line-height: 1.3;
+  }
+
+  .hero-body {
+    font-size: 15px;
+  }
+
+  .hero-ctas {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    align-items: center;
+  }
+
+  .hero-ctas a {
+    width: 100%;
+    max-width: 320px;
+    text-align: center;
+  }
+
+   /* imagem volta no mobile (opcional) */
+  .hero-img-col {
+    display: block;
+    order: -1; /* joga a imagem pra cima */
+    text-align: center;
+  }
+
+  .hero-photo {
+    max-width: 260px;
+    width: 100%;
+    margin: 0 auto;
+  }
+
+  .hero-img-gradient {
+    display: none; /* evita poluição visual no mobile */
+  }
+
+  /* stats */
+  .hero-stats {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+    text-align: center;
+  }
+
+  .hero-stats > div {
+    flex: 1 1 30%;
+  }
+
+  .stat-num {
+    font-size: 20px;
+  }
+
+  .stat-label {
+    font-size: 12px;
+  }
+
+      .hero-img-col {
+        display: none;
+      }
+
+      .hero-stats {
+        gap: 32px;
+      }
+
+      #sobre .container,
+      #diferenciais .container {
+        grid-template-columns: 1fr;
+        gap: 40px;
+      }
+
+      .dif-left {
+        position: static;
+      }
+
+      .sobre-checklist {
+        grid-template-columns: 1fr;
+      }
+
+      .solucoes-grid,
+      .palestras-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .dep-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .dif-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .footer-grid {
+        grid-template-columns: 1fr;
+        gap: 40px;
+      }
+
+      .footer-bottom {
+        flex-direction: column;
+        gap: 12px;
+        text-align: center;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <div class="container">
+      <div class="nav-brand">
+        <a href="#hero"><span class="nav-brand-name">Elem Mescouto</span>
+        <span class="nav-brand-sub">Desenvolvimento &amp; Estratégia</span></a>
+      </div>
+      <ul class="nav-links">
+        <li><a href="#sobre">Sobre</a></li>
+        <li><a href="#solucoes">Soluções</a></li>
+        <li><a href="#diferenciais">Diferenciais</a></li>
+        <li><a href="#palestras">Palestras</a></li>
+        <li><a href="#depoimentos">Depoimentos</a></li>
+        <li><a href="#contato">Contato</a></li>
+      </ul>
+      <button class="btn-nav">Fale comigo</button>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section id="hero">
+    <div class="container">
+      <!-- Coluna texto -->
+      <div class="hero-text">
+        <p class="hero-eyebrow">Especialista em Desenvolvimento Humano</p>
+        <h1 class="hero-title">Transformando pessoas, líderes e organizações por meio da educação, da aprendizagem e da
+          gestão estratégica.</h1>
+        <p class="hero-body">Desenvolvimento humano, educação corporativa, liderança e gestão estratégica para empresas,
+          gestores, instituições de ensino e profissionais que desejam crescer com propósito e resultados.</p>
+        <div class="hero-ctas">
+          <a href="#contato" class="btn-gold">Agendar Conversa Estratégica →</a>
+          <a href="#sobre" class="btn-outline-white">Conhecer Minha História</a>
+        </div>
+        <div class="hero-stats">
+          <div>
+            <div class="stat-num"><span>+</span>15</div>
+            <div class="stat-label">Anos de experiência</div>
+          </div>
+          <div>
+            <div class="stat-num"><span>+</span>200</div>
+            <div class="stat-label">Líderes desenvolvidos</div>
+          </div>
+          <div>
+            <div class="stat-num"><span>+</span>50</div>
+            <div class="stat-label">Organizações atendidas</div>
+          </div>
+        </div>
+      </div>
+      <!-- Coluna foto -->
+      <div class="hero-img-col">
+        <div class="hero-img-gradient"></div>
+        <!-- Substitua o src abaixo pela URL ou caminho da sua foto -->
+        <img class="hero-photo" src="img/hero.png" alt="Elem Mescouto" />
+      </div>
+    </div>
+    </div>
+  </section>
+
+  <!-- SOBRE -->
+  <section id="sobre">
+    <div class="container">
+      <div class="sobre-img-wrap">
+        <div class="sobre-img-placeholder">
+
+          <img src="img/sobre.png" alt="Elem Mescouto" class="hero-photo" />
+        </div>
+        <div class="sobre-quote">
+          <p>"Pessoas no centro de cada estratégia."</p>
+          <cite>Elem Mescouto</cite>
+        </div>
+      </div>
+      <div class="sobre-text">
+        <p class="section-eyebrow">Sobre</p>
+        <h2 class="section-title">Uma trajetória construída por propósito, educação e transformação.</h2>
+        <p class="sobre-p">Sou Elem Mescouto, administradora, educadora, mentora e empreendedora.</p>
+        <p class="sobre-p">Minha trajetória foi construída pela superação, pela busca contínua por conhecimento e pela
+          convicção de que
+          pessoas desenvolvidas transformam organizações e sociedades.</p>
+        <p class="sobre-p">Ao longo da minha caminhada, atuei no empreendedorismo, na educação superior, na formação de
+          profissionais e
+          no desenvolvimento de líderes, conectando estratégia, aprendizagem e crescimento humano.</p>
+        <p class="sobre-p">Hoje ajudo empresas, gestores e profissionais a desenvolver competências, fortalecer
+          lideranças e construir
+          resultados sustentáveis.</p>
+        <div class="sobre-checklist">
+          <div class="check-item">
+            <svg viewBox="0 0 24 24" class="check-icon" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="9"></circle>
+              <path d="M9 12l2 2 4-4"></path>
+            </svg>
+            Empreendedorismo e visão de negócio
+          </div>
+          <div class="check-item"><svg viewBox="0 0 24 24" class="check-icon" fill="none" stroke="currentColor"
+              stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="9"></circle>
+              <path d="M9 12l2 2 4-4"></path>
+            </svg> Educação superior e formação de profissionais</div>
+          <div class="check-item"><svg viewBox="0 0 24 24" class="check-icon" fill="none" stroke="currentColor"
+              stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="9"></circle>
+              <path d="M9 12l2 2 4-4"></path>
+            </svg> Desenvolvimento de líderes e equipes</div>
+          <div class="check-item"><svg viewBox="0 0 24 24" class="check-icon" fill="none" stroke="currentColor"
+              stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="9"></circle>
+              <path d="M9 12l2 2 4-4"></path>
+            </svg> Estratégia, aprendizagem e crescimento humano</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SOLUÇÕES -->
+  <section id="solucoes">
+    <div class="container">
+      <div class="solucoes-header">
+        <p class="section-eyebrow">Soluções</p>
+        <h2 class="section-title">Soluções para pessoas, líderes e organizações</h2>
+        <p class="solucoes-p">Programas e serviços desenhados para empresas, gestores, instituições de ensino e fóruns
+          de RH que desejam
+          evoluir através das pessoas.</p>
+      </div>
+      <div class="solucoes-grid">
+        <div class="card-sol">
+          <div class="card-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+              class="lucide lucide-briefcase size-6" aria-hidden="true">
+              <path d="M16 20V4a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
+              <rect width="20" height="14" x="2" y="6" rx="2"></rect>
+            </svg>
+          </div>
+          <h3 class="card-title">Mentoria Executiva</h3>
+          <p>Acompanhamento individual para gestores e executivos que buscam alto desempenho com propósito.</p>
+        </div>
+        <div class="card-sol">
+          <div class="card-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+              class="lucide lucide-graduation-cap size-6" aria-hidden="true">
+              <path
+                d="M21.42 10.922a1 1 0 0 0-.019-1.838L12.83 5.18a2 2 0 0 0-1.66 0L2.6 9.08a1 1 0 0 0 0 1.832l8.57 3.908a2 2 0 0 0 1.66 0z">
+              </path>
+              <path d="M22 10v6"></path>
+              <path d="M6 12.5V16a6 3 0 0 0 12 0v-3.5"></path>
+            </svg>
+          </div>
+          <h3 class="card-title">Educação Corporativa</h3>
+          <p>Trilhas de aprendizagem e universidades corporativas alinhadas à estratégia do negócio.</p>
+        </div>
+        <div class="card-sol">
+          <div class="card-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+              class="lucide lucide-users size-6" aria-hidden="true">
+              <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path>
+              <path d="M16 3.128a4 4 0 0 1 0 7.744"></path>
+              <path d="M22 21v-2a4 4 0 0 0-3-3.87"></path>
+              <circle cx="9" cy="7" r="4"></circle>
+            </svg>
+          </div>
+          <h3 class="card-title">Desenvolvimento de Lideranças</h3>
+          <p>Formação de líderes que inspiram, engajam e constroem culturas organizacionais saudáveis.</p>
+        </div>
+        <div class="card-sol">
+          <div class="card-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+              class="lucide lucide-presentation size-6" aria-hidden="true">
+              <path d="M2 3h20"></path>
+              <path d="M21 3v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V3"></path>
+              <path d="m7 21 5-5 5 5"></path>
+            </svg>
+          </div>
+          <h3 class="card-title">Treinamentos Corporativos</h3>
+          <p>Capacitações in company customizadas para times, áreas e desafios específicos.</p>
+        </div>
+        <div class="card-sol">
+          <div class="card-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+              class="lucide lucide-mic size-6" aria-hidden="true">
+              <path d="M12 19v3"></path>
+              <path d="M19 10v2a7 7 0 0 1-14 0v-2"></path>
+              <rect x="9" y="2" width="6" height="13" rx="3"></rect>
+            </svg>
+          </div>
+          <h3 class="card-title">Palestras Corporativas</h3>
+          <p>Palestras inspiradoras para empresas e eventos sobre pessoas, liderança e estratégia.</p>
+        </div>
+        <div class="card-sol">
+          <div class="card-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+              class="lucide lucide-target size-6" aria-hidden="true">
+              <circle cx="12" cy="12" r="10"></circle>
+              <circle cx="12" cy="12" r="6"></circle>
+              <circle cx="12" cy="12" r="2"></circle>
+            </svg>
+          </div>
+          <h3 class="card-title">Gestão Estratégica</h3>
+          <p>Planejamento e gestão de pessoas conectados a metas, indicadores e resultados sustentáveis.</p>
+        </div>
+        <div class="card-sol-last" style="grid-column: 1 / 2;">
+          <h3 class="card-title">Vamos construir juntos?</h3>
+          <p>Entre em contato para desenharmos a solução ideal para a sua organização.</p>
+          <a href="#contato">Fale comigo →</a>
+        </div>
+        <div style="background: var(--cream-2); border-bottom: 1px solid rgba(0,0,0,0.1);"></div>
+        <div
+          style="background: var(--cream-2); border-bottom: 1px solid rgba(0,0,0,0.1); border-left: 1px solid rgba(0,0,0,0.1);">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DIFERENCIAIS -->
+  <section id="diferenciais">
+    <div class="container">
+      <div class="dif-left">
+        <p class="section-eyebrow">Diferenciais</p>
+        <h2 class="section-title">Por que escolher trabalhar com a Elem</h2>
+        <p class="diferenciais-p">Um trabalho que une rigor técnico, sensibilidade humana e foco em resultados
+          sustentáveis para a sua
+          organização.</p>
+      </div>
+      <div class="dif-grid">
+        <div class="card-dif">
+          <div class="card-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+              class="lucide lucide-building2 lucide-building-2 size-5" aria-hidden="true">
+              <path d="M10 12h4"></path>
+              <path d="M10 8h4"></path>
+              <path d="M14 21v-3a2 2 0 0 0-4 0v3"></path>
+              <path d="M6 10H4a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-2"></path>
+              <path d="M6 21V5a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v16"></path>
+            </svg>
+          </div>
+          <h3 class="card-title">Experiência Empresarial Real</h3>
+          <p class="dif-title-card">Vivência prática no empreendedorismo e na gestão, conectando teoria aos desafios
+            reais das organizações.
+          </p>
+        </div>
+        <div class="card-dif">
+          <div class="card-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+              class="lucide lucide-graduation-cap size-5" aria-hidden="true">
+              <path
+                d="M21.42 10.922a1 1 0 0 0-.019-1.838L12.83 5.18a2 2 0 0 0-1.66 0L2.6 9.08a1 1 0 0 0 0 1.832l8.57 3.908a2 2 0 0 0 1.66 0z">
+              </path>
+              <path d="M22 10v6"></path>
+              <path d="M6 12.5V16a6 3 0 0 0 12 0v-3.5"></path>
+            </svg>
+          </div>
+          <h3 class="card-title">Formação Acadêmica Multidisciplinar</h3>
+          <p class="dif-title-card">Base sólida em administração e educação, unindo conhecimento técnico e visão humana.
+          </p>
+        </div>
+        <div class="card-dif">
+          <div class="card-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+              class="lucide lucide-heart-handshake size-5" aria-hidden="true">
+              <path
+                d="M19.414 14.414C21 12.828 22 11.5 22 9.5a5.5 5.5 0 0 0-9.591-3.676.6.6 0 0 1-.818.001A5.5 5.5 0 0 0 2 9.5c0 2.3 1.5 4 3 5.5l5.535 5.362a2 2 0 0 0 2.879.052 2.12 2.12 0 0 0-.004-3 2.124 2.124 0 1 0 3-3 2.124 2.124 0 0 0 3.004 0 2 2 0 0 0 0-2.828l-1.881-1.882a2.41 2.41 0 0 0-3.409 0l-1.71 1.71a2 2 0 0 1-2.828 0 2 2 0 0 1 0-2.828l2.823-2.762">
+              </path>
+            </svg>
+          </div>
+          <h3 class="card-title">Liderança Humanizada</h3>
+          <p class="dif-title-card">Desenvolvimento de líderes que inspiram, engajam e cuidam das pessoas e dos
+            resultados.</p>
+        </div>
+        <div class="card-dif">
+          <div class="card-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+              class="lucide lucide-compass size-5" aria-hidden="true">
+              <circle cx="12" cy="12" r="10"></circle>
+              <path d="m16.24 7.76-1.804 5.411a2 2 0 0 1-1.265 1.265L7.76 16.24l1.804-5.411a2 2 0 0 1 1.265-1.265z">
+              </path>
+            </svg>
+          </div>
+          <h3 class="card-title">Visão Estratégica</h3>
+          <p class="dif-title-card">Programas que partem dos objetivos do negócio e se traduzem em indicadores claros.
+          </p>
+        </div>
+        <div class="card-dif" style="border-bottom: none;">
+          <div class="card-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+              class="lucide lucide-wrench size-5" aria-hidden="true">
+              <path
+                d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.106-3.105c.32-.322.863-.22.983.218a6 6 0 0 1-8.259 7.057l-7.91 7.91a1 1 0 0 1-2.999-3l7.91-7.91a6 6 0 0 1 7.057-8.259c.438.12.54.662.219.984z">
+              </path>
+            </svg>
+          </div>
+          <h3 class="card-title">Aplicação Prática</h3>
+          <p class="dif-title-card">Metodologias ativas e vivenciais que geram aprendizagem aplicável ao dia a dia.</p>
+        </div>
+        <div class="card-dif" style="border-bottom: none; border-right: none;">
+          <div class="card-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+              class="lucide lucide-trending-up size-5" aria-hidden="true">
+              <path d="M16 7h6v6"></path>
+              <path d="m22 7-8.5 8.5-5-5L2 17"></path>
+            </svg>
+          </div>
+          <h3 class="card-title">Crescimento Sustentável</h3>
+          <p class="dif-title-card">Foco em resultados consistentes e duradouros para pessoas e organizações.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PALESTRAS -->
+  <section id="palestras">
+    <div class="container">
+      <div class="palestras-header">
+        <p class="section-eyebrow">Temas de Palestras</p>
+        <h2 class="section-title">Palestras que inspiram pessoas e movem organizações</h2>
+        <p class="palestra-p">Conteúdos desenhados para eventos corporativos, fóruns de RH e instituições de ensino,
+          sempre conectando
+          propósito, liderança e resultados.</p>
+      </div>
+      <div class="palestras-grid">
+        <div class="card-pal">
+          <div class="pal-icon-wrap">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+              class="lucide lucide-mic size-5" aria-hidden="true">
+              <path d="M12 19v3"></path>
+              <path d="M19 10v2a7 7 0 0 1-14 0v-2"></path>
+              <rect x="9" y="2" width="6" height="13" rx="3"></rect>
+            </svg>
+          </div>
+          <div>
+            <div class="pal-num">01</div>
+            <div class="pal-title">Liderança Humanizada</div>
+          </div>
+        </div>
+        <div class="card-pal">
+          <div class="pal-icon-wrap">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+              class="lucide lucide-mic size-5" aria-hidden="true">
+              <path d="M12 19v3"></path>
+              <path d="M19 10v2a7 7 0 0 1-14 0v-2"></path>
+              <rect x="9" y="2" width="6" height="13" rx="3"></rect>
+            </svg>
+          </div>
+          <div>
+            <div class="pal-num">02</div>
+            <div class="pal-title">Produtividade com Propósito</div>
+          </div>
+        </div>
+        <div class="card-pal" style="border-right: none;">
+          <div class="pal-icon-wrap">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+              class="lucide lucide-mic size-5" aria-hidden="true">
+              <path d="M12 19v3"></path>
+              <path d="M19 10v2a7 7 0 0 1-14 0v-2"></path>
+              <rect x="9" y="2" width="6" height="13" rx="3"></rect>
+            </svg>
+          </div>
+          <div>
+            <div class="pal-num">03</div>
+            <div class="pal-title">Desenvolvimento Humano nas Organizações</div>
+          </div>
+        </div>
+        <div class="card-pal">
+          <div class="pal-icon-wrap">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+              class="lucide lucide-mic size-5" aria-hidden="true">
+              <path d="M12 19v3"></path>
+              <path d="M19 10v2a7 7 0 0 1-14 0v-2"></path>
+              <rect x="9" y="2" width="6" height="13" rx="3"></rect>
+            </svg>
+          </div>
+          <div>
+            <div class="pal-num">04</div>
+            <div class="pal-title">O Futuro do Trabalho e da Aprendizagem</div>
+          </div>
+        </div>
+
+        <div class="card-pal">
+          <div class="pal-icon-wrap">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+              class="lucide lucide-mic size-5" aria-hidden="true">
+              <path d="M12 19v3"></path>
+              <path d="M19 10v2a7 7 0 0 1-14 0v-2"></path>
+              <rect x="9" y="2" width="6" height="13" rx="3"></rect>
+            </svg>
+          </div>
+          <div>
+            <div class="pal-num">05</div>
+            <div class="pal-title">Cultura Organizacional e Engajamento</div>
+          </div>
+        </div>
+        <div class="card-pal">
+          <div class="pal-icon-wrap">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+              class="lucide lucide-mic size-5" aria-hidden="true">
+              <path d="M12 19v3"></path>
+              <path d="M19 10v2a7 7 0 0 1-14 0v-2"></path>
+              <rect x="9" y="2" width="6" height="13" rx="3"></rect>
+            </svg>
+          </div>
+          <div>
+            <div class="pal-num">06</div>
+            <div class="pal-title">Inteligência Emocional para Líderes</div>
+          </div>
+        </div>
+        <div class="card-pal">
+          <div class="pal-icon-wrap">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+              class="lucide lucide-mic size-5" aria-hidden="true">
+              <path d="M12 19v3"></path>
+              <path d="M19 10v2a7 7 0 0 1-14 0v-2"></path>
+              <rect x="9" y="2" width="6" height="13" rx="3"></rect>
+            </svg>
+          </div>
+          <div>
+            <div class="pal-num">07</div>
+            <div class="pal-title">Equipes de Alta Performance</div>
+          </div>
+        </div>
+        <!-- Quer tema sobre medida -->
+        <div class="card-pal-cta">
+          <h4>Quer um tema sob medida?</h4>
+          <p>Palestras personalizadas para o contexto da sua organização.</p>
+          <a href="#contato">Solicitar palestra →</a>
+        </div>
+        <!-- fim do quer tema sobre medida -->
+        <div class="card-pal-empty" style="border-bottom: none;"></div>
+        <div class="card-pal-empty" style="border-bottom: none; border-right: none;"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DEPOIMENTOS -->
+  <section id="depoimentos">
+    <div class="container">
+      <div class="dep-header">
+        <p class="section-eyebrow">Depoimentos</p>
+        <h2 class="section-title">Quem confia neste trabalho</h2>
+      </div>
+      <div class="dep-grid">
+        <div class="card-dep">
+          <div class="dep-quote-icon">❝</div>
+          <p>O trabalho da Elem transformou a forma como nossos líderes enxergam pessoas e resultados. Ganhamos uma
+            cultura mais madura e estratégica.</p>
+          <div class="dep-divider"></div>
+          <div class="dep-name">Mariana Albuquerque</div>
+          <div class="dep-role">Diretora de RH, Indústria</div>
+        </div>
+        <div class="card-dep">
+          <div class="dep-quote-icon">❝</div>
+          <p>Conteúdo profundo aliado a uma condução leve e envolvente. Nossos times saíram dos treinamentos mais
+            engajados e preparados.</p>
+          <div class="dep-divider"></div>
+          <div class="dep-name">Rafael Tavares</div>
+          <div class="dep-role">Gerente de Pessoas, Varejo</div>
+        </div>
+        <div class="card-dep">
+          <div class="dep-quote-icon">❝</div>
+          <p>A mentoria executiva me deu clareza estratégica e segurança para liderar em um momento decisivo da empresa.
+          </p>
+          <div class="dep-divider"></div>
+          <div class="dep-name">Camila Nogueira</div>
+          <div class="dep-role">CEO, Educação</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTATO -->
+  <section id="contato">
+    <img src="img/cta-bg.jpg" class="bg-img">
+    <div class="container">
+      <p class="section-eyebrow">Vamos Conversar</p>
+      <h2 class="section-title">Pronto para transformar pessoas e resultados na sua organização?</h2>
+      <p class="contato-p">Agende uma conversa para desenhar a solução ideal em desenvolvimento humano, educação
+        corporativa, liderança e
+        gestão estratégica.</p>
+      <div class="hero-ctas">
+        <a href="https://wa.me/5584986751530" class="btn-gold" target="_blank" rel="noopener">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+            class="lucide lucide-message-circle size-4" aria-hidden="true">
+            <path
+              d="M2.992 16.342a2 2 0 0 1 .094 1.167l-1.065 3.29a1 1 0 0 0 1.236 1.168l3.413-.998a2 2 0 0 1 1.099.092 10 10 0 1 0-4.777-4.719">
+            </path>
+          </svg>
+          Falar no WhatsApp
+        </a>
+        <a href="https://linkedin.com/in/elem-mescouto" class="btn-outline-gold" target="_blank" rel="noopener">Conectar
+          no LinkedIn →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-inner">
+      <div class="container">
+        <div class="footer-grid">
+          <div>
+            <div class="footer-brand-name">Elem Mescouto</div>
+            <div class="footer-brand-desc">Desenvolvimento Humano • Educação Corporativa • Liderança • Gestão
+              Estratégica.</div>
+          </div>
+          <div>
+            <div class="footer-col-title">Navegação</div>
+            <ul class="footer-nav">
+              <li><a href="#sobre">Sobre</a></li>
+              <li><a href="#solucoes">Soluções</a></li>
+              <li><a href="#diferenciais">Diferenciais</a></li>
+              <li><a href="#palestras">Palestras</a></li>
+              <li><a href="#depoimentos">Depoimentos</a></li>
+            </ul>
+          </div>
+          <div>
+            <div class="footer-col-title">Contato</div>
+            <div class="footer-contact">
+              <div class="contact-item">
+                <svg class="contact-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                  stroke-width="1.5">
+                  <path
+                    d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.18h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 8.96a16 16 0 0 0 6 6l.91-1.91a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
+                </svg>
+                (84) 98675-1530
+              </div>
+              <div class="contact-item">
+                <svg class="contact-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                  stroke-width="1.5">
+                  <rect x="2" y="2" width="20" height="20" rx="5" />
+                  <circle cx="12" cy="12" r="4" />
+                  <circle cx="17.5" cy="6.5" r="0.5" fill="currentColor" />
+                </svg>
+                @elemmescouto
+              </div>
+              <div class="contact-item">
+                <svg class="contact-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                  stroke-width="1.5">
+                  <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
+                  <rect x="2" y="9" width="4" height="12" />
+                  <circle cx="4" cy="4" r="2" />
+                </svg>
+                in/elem-mescouto
+              </div>
+              <div class="contact-item">
+                <svg class="contact-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                  stroke-width="1.5">
+                  <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+                  <polyline points="22,6 12,13 2,6" />
+                </svg>
+                elem.m.escouto@hotmail.com
+              </div>
+              <div class="contact-item">
+                <svg class="contact-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                  stroke-width="1.5">
+                  <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
+                  <circle cx="12" cy="10" r="3" />
+                </svg>
+                Parnamirim – RN
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <p>© 2026 Elem Mescouto. Todos os direitos reservados.</p>
+          <p style="color: rgba(255,255,255,0.25);">Desenvolvimento Humano · Educação Corporativa · Gestão Estratégica
+          </p>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+</body>
+
+</html>
